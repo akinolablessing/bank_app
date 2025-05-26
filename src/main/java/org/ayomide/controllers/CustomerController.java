@@ -1,7 +1,9 @@
 package org.ayomide.controllers;
 
+import org.ayomide.dto.request.LoginRequest;
 import org.ayomide.dto.request.RegisterRequest;
 import org.ayomide.dto.response.ApiResponse;
+import org.ayomide.dto.response.LoginResponse;
 import org.ayomide.dto.response.RegisterResponse;
 import org.ayomide.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +31,14 @@ private final CustomerService customerService;
         }
 
     }
+   @PostMapping("/login-user")
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest request){
+        try {
+            LoginResponse response = customerService.loginUserAccount(request);
+            return new ResponseEntity<>(new ApiResponse(true, response), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+   }
 }

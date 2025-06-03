@@ -16,7 +16,8 @@ public class Account {
     private  String accountNumber;
     private double balance;
     private LocalDateTime createdAt;
+    private String userName;
 
-    @ManyToOne
-    private Customer customer;
+//    @ManyToOne
+//    private Customer customer;
 }

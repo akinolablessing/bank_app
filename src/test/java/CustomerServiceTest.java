@@ -1,5 +1,7 @@
 import org.ayomide.Main;
+import org.ayomide.dto.request.LoginRequest;
 import org.ayomide.dto.request.RegisterRequest;
+import org.ayomide.dto.response.LoginResponse;
 import org.ayomide.dto.response.RegisterResponse;
 import org.ayomide.services.CustomerService;
 import org.junit.jupiter.api.Test;
@@ -34,5 +36,19 @@ public class CustomerServiceTest {
     request.setPhoneNumber("09155300427");
     request.setUserGmail("fccsygt@gmail.com");
     return request;
+    }
+    @Test
+    public void testThatLoginUser(){
+        LoginRequest request = loginUser();
+        LoginResponse response = customerService.loginUserAccount(request);
+        assertEquals("Login Successfully", response.getMessage());
+    }
+
+    public LoginRequest loginUser(){
+        LoginRequest request = new LoginRequest();
+        request.setUserGmail("fccsygt@gmail.com");
+        request.setPhoneNumber("09155300427");
+        request.setPassword("234rff");
+        return request;
     }
 }

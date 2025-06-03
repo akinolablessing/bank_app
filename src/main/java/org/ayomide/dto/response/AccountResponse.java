@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class AccountResponse {
     private String accountNumber;
-    private String customerName;
+    private String userName;
     private double balance;
     private String message;
 }

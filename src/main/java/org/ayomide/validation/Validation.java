@@ -1,12 +1,18 @@
 package org.ayomide.validation;
 
+import org.ayomide.data.repositories.AccountRepository;
+import org.ayomide.dto.request.AccountRequest;
 import org.ayomide.dto.request.RegisterRequest;
 import org.ayomide.exception.UserGmailValidation;
 import org.ayomide.exception.UserNameValidation;
 import org.ayomide.exception.UserPhoneNumberValidation;
 import org.ayomide.exception.UserValidationPassword;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Validation {
+
+
+
     public static void emailValidation(RegisterRequest request){
     if(!request.getUserGmail().contains("@gmail.com")){
         throw new UserGmailValidation("Invalid gmail!!");

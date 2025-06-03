@@ -38,7 +38,7 @@ public class CustomerService implements CustomerServiceInter{
         customer.setPassword(hashPassword);
         customer.setAddress(registerRequest.getAddress());
         customerRepo.save(customer);
-        response.setMessage("Bank account Register successfully!!");
+        response.setMessage("Register successfully!!");
         return response;
     }
 
@@ -55,7 +55,7 @@ public class CustomerService implements CustomerServiceInter{
         else {
             throw new LoginException("Invalid Credential!!");
         }
-        loginResponse.setMessage("Bank Account Login Successfully");
+        loginResponse.setMessage("Login Successfully");
         return loginResponse;
         }
 

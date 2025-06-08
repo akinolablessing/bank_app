@@ -1,12 +1,11 @@
 package org.ayomide.validation;
 
+import org.ayomide.data.model.Status;
+import org.ayomide.data.model.TransactionType;
 import org.ayomide.data.repositories.AccountRepository;
 import org.ayomide.dto.request.AccountRequest;
 import org.ayomide.dto.request.RegisterRequest;
-import org.ayomide.exception.UserGmailValidation;
-import org.ayomide.exception.UserNameValidation;
-import org.ayomide.exception.UserPhoneNumberValidation;
-import org.ayomide.exception.UserValidationPassword;
+import org.ayomide.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Validation {
@@ -34,6 +33,16 @@ public class Validation {
         }
         if(request.getPassword().length() > 6){
            throw new UserValidationPassword("Password should be 6-digit number!!");
+        }
+    }
+    public static void statusTypeValidation(Status status){
+       if(!Status.SUCCESS.equals(status)){
+           throw new StatusTypeValidation("Transaction Failed");
+       }
+    }
+    public static void transactionTypeForWithdrawValidation(TransactionType type){
+        if(!TransactionType.WITHDRAWAL.equals(type)){
+            throw new TransactionTypeValidation("Transaction Type should me withdraw");
         }
     }
 }

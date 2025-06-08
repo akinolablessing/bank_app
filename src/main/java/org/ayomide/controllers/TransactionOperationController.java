@@ -3,6 +3,7 @@ package org.ayomide.controllers;
 import lombok.AllArgsConstructor;
 import org.ayomide.dto.request.TransactionRequest;
 import org.ayomide.dto.response.ApiResponse;
+import org.ayomide.dto.response.BalanceResponse;
 import org.ayomide.dto.response.RegisterResponse;
 import org.ayomide.dto.response.TransactionResponse;
 import org.ayomide.services.TransactionService;
@@ -36,10 +37,19 @@ public class TransactionOperationController {
             return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping
+    @PostMapping("/transfer")
     public ResponseEntity<?> transferMoney(@RequestBody TransactionRequest request){
         try {
             TransactionResponse response = transactionService.transfer(request);
+            return new ResponseEntity<>(new ApiResponse(true, response), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/checkBalance")
+    public ResponseEntity<?> checkBalance(@RequestBody TransactionRequest request){
+        try {
+            BalanceResponse response = transactionService.checkBalance(request);
             return new ResponseEntity<>(new ApiResponse(true, response), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ApiResponse(false, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);

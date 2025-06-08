@@ -5,6 +5,7 @@ import org.ayomide.data.model.*;
 import org.ayomide.data.repositories.AccountRepository;
 import org.ayomide.data.repositories.TransactionRepo;
 import org.ayomide.dto.request.TransactionRequest;
+import org.ayomide.dto.response.BalanceResponse;
 import org.ayomide.dto.response.TransactionResponse;
 import org.ayomide.exception.AccountNumberValidation;
 import org.ayomide.exception.AmountTranferException;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static org.ayomide.validation.Validation.*;
 
 @Service
 @AllArgsConstructor
@@ -153,4 +156,19 @@ public class TransactionService implements TransactionServiceInter{
 
         return response;
     }
+
+    @Override
+    public BalanceResponse checkBalance(TransactionRequest request) {
+        BalanceResponse response = new BalanceResponse();
+        if (request == null || request.getAccountNumber() == null || request.getAccountNumber().isEmpty()) {
+            throw new IllegalArgumentException("Account number must be provided");
+        }
+
+        Account account = accountRepository.findByAccountNumber(request.getAccountNumber())
+                .orElseThrow(() -> new AccountNumberValidation("Account not found: " + request.getAccountNumber()));
+       response.setAccountNumber(account.getAccountNumber());
+       response.setBalance(account.getBalance());
+        return response;
+    }
+
 }
